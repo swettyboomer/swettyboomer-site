@@ -1,0 +1,43 @@
+---
+// A catalog card for one app, sitting on the shelf. Icon is the object;
+// the mono labels are its spec tag.
+import StatusPill from './StatusPill.astro';
+import { platformLabel } from '../consts';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  app: CollectionEntry<'apps'>;
+}
+const { app } = Astro.props;
+const { data } = app;
+---
+<a
+  href={`/apps/${app.id}`}
+  class="group flex flex-col rounded-xl border border-edge bg-slab p-5 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.8)] transition duration-200 motion-safe:hover:-translate-y-1 hover:border-brass/45 hover:bg-slab-2"
+>
+  <div class="flex items-start justify-between gap-3">
+    <img
+      src={data.icon}
+      alt={`${data.name} icon`}
+      width="56"
+      height="56"
+      class="h-14 w-14 rounded-xl border border-edge/70"
+    />
+    <span class="label">{platformLabel(data.storeLinks)}</span>
+  </div>
+
+  <h3 class="mt-4 text-lg font-semibold tracking-tight text-bone">
+    {data.name}
+  </h3>
+  <p class="mt-1 text-sm text-ash">{data.tagline}</p>
+
+  <div class="mt-5 flex items-center justify-between border-t border-edge/60 pt-4">
+    <StatusPill status={data.status} />
+    <span
+      class="label text-brass-bright opacity-0 transition group-hover:opacity-100"
+      aria-hidden="true"
+    >
+      View →
+    </span>
+  </div>
+</a>

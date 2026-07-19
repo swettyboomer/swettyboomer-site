@@ -1,0 +1,22 @@
+---
+// A small status marker: live (brass) or coming soon (muted).
+interface Props {
+  status: 'live' | 'coming-soon';
+}
+const { status } = Astro.props;
+const live = status === 'live';
+---
+<span
+  class:list={[
+    'label inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1',
+    live ? 'border-brass/40 text-brass-bright' : 'border-edge text-ash',
+  ]}
+>
+  <span
+    class:list={[
+      'h-1.5 w-1.5 rounded-full',
+      live ? 'bg-brass-bright' : 'bg-ash-dim',
+    ]}
+    aria-hidden="true"></span>
+  {live ? 'Available now' : 'Coming soon'}
+</span>

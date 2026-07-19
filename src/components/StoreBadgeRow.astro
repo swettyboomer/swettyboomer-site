@@ -1,0 +1,26 @@
+---
+// Renders a row of store badges — but only for the stores an app actually
+// has a link for. If an app has no store links yet, nothing renders.
+import StoreBadge from './StoreBadge.astro';
+
+interface Props {
+  storeLinks: { microsoft?: string; apple?: string; google?: string };
+  class?: string;
+}
+const { storeLinks, class: className = '' } = Astro.props;
+
+const badges = [
+  storeLinks.microsoft && { store: 'microsoft' as const, href: storeLinks.microsoft },
+  storeLinks.apple && { store: 'apple' as const, href: storeLinks.apple },
+  storeLinks.google && { store: 'google' as const, href: storeLinks.google },
+].filter(Boolean) as { store: 'microsoft' | 'apple' | 'google'; href: string }[];
+---
+{
+  badges.length > 0 && (
+    <div class:list={['flex flex-wrap gap-3', className]}>
+      {badges.map((b) => (
+        <StoreBadge store={b.store} href={b.href} />
+      ))}
+    </div>
+  )
+}

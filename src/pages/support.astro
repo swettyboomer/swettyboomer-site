@@ -1,0 +1,112 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+
+const apps = (await getCollection('apps')).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+);
+
+// Placeholder FAQ per app — replace the answers with real copy later.
+function faqFor(name: string) {
+  return [
+    {
+      q: `How do I get help with ${name}?`,
+      a: `Email ${SITE.email} with a short description of what's happening. Include your device and, if it's a bug, the steps that led to it.`,
+    },
+    {
+      q: `Where is my data stored?`,
+      a: `[Placeholder answer — replace later.] See the ${name} privacy policy below for exactly what is and isn't collected.`,
+    },
+    {
+      q: `Can I request a feature?`,
+      a: `Yes — feature requests go to the same inbox and are read by the person who builds the app.`,
+    },
+  ];
+}
+---
+<BaseLayout title="Support" description={`Get help with ${SITE.name} apps, read the FAQ, and find each app's privacy policy.`}>
+  <div class="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
+    <p class="label">Support</p>
+    <h1 class="mt-4 text-4xl font-semibold tracking-tight text-bone sm:text-5xl">
+      Help &amp; contact
+    </h1>
+    <p class="mt-5 max-w-xl text-lg text-ash">
+      Every app is made by one person, and support goes straight to them — no
+      ticket queue, no bot.
+    </p>
+
+    <!-- Contact -->
+    <div class="mt-10 rounded-2xl border border-edge bg-slab p-6 sm:p-8">
+      <p class="label">Email</p>
+      <a
+        href={`mailto:${SITE.email}`}
+        class="mt-2 inline-block text-xl font-semibold text-brass-bright underline-offset-4 hover:underline"
+      >
+        {SITE.email}
+      </a>
+      <p class="mt-3 text-sm text-ash">
+        Typical reply time is a day or two. Please include which app you're
+        writing about.
+      </p>
+    </div>
+
+    <!-- Per-app FAQ -->
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold tracking-tight text-bone">
+        Frequently asked questions
+      </h2>
+      <div class="mt-8 space-y-14">
+        {
+          apps.map((app) => (
+            <div id={app.id} class="scroll-mt-24">
+              <div class="flex items-center gap-3">
+                <img
+                  src={app.data.icon}
+                  alt=""
+                  width="32"
+                  height="32"
+                  class="h-8 w-8 rounded-lg border border-edge"
+                />
+                <h3 class="text-lg font-semibold text-bone">{app.data.name}</h3>
+              </div>
+              <dl class="mt-5 divide-y divide-edge/60 border-y border-edge/60">
+                {faqFor(app.data.name).map((item) => (
+                  <div class="py-4">
+                    <dt class="text-[0.975rem] font-medium text-bone">{item.q}</dt>
+                    <dd class="mt-2 text-[0.95rem] text-ash">{item.a}</dd>
+                  </div>
+                ))}
+              </dl>
+              <a
+                href={`/privacy/${app.id}`}
+                class="label mt-4 inline-block text-brass-bright hover:underline"
+              >
+                {app.data.name} privacy policy →
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- All privacy policies -->
+    <section class="mt-16 border-t border-edge/70 pt-10">
+      <p class="label">Privacy policies</p>
+      <ul class="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+        {
+          apps.map((app) => (
+            <li>
+              <a
+                href={`/privacy/${app.id}`}
+                class="text-sm text-ash underline underline-offset-4 hover:text-bone"
+              >
+                {app.data.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

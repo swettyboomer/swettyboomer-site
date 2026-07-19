@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+---
+<BaseLayout title="About" description={`About ${SITE.name} — an independent software publisher.`}>
+  <div class="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
+    <p class="label">About</p>
+    <h1 class="mt-4 text-4xl font-semibold tracking-tight text-bone sm:text-5xl">
+      Small software, made to last.
+    </h1>
+
+    <div class="policy mt-10 max-w-2xl">
+      <p>
+        [Placeholder copy — replace later.] {SITE.name} is an independent
+        software publisher run by one person. The work is a small, deliberate
+        catalogue rather than a growth chart: tools that do one thing well and
+        stay out of your way.
+      </p>
+      <p>
+        The <strong class="text-bone">Shelf</strong> suite began with a simple
+        frustration — collections that live in spreadsheets and browser tabs
+        instead of somewhere calm and permanent. Each Shelf app gives one kind
+        of collection a proper home on the desktop, local-first and fast.
+      </p>
+      <p>
+        <strong class="text-bone">Attune</strong> came from a different place:
+        a wish for a quieter, more intentional way to approach a session, built
+        for adults and free of hype.
+      </p>
+
+      <h2>What these apps have in common</h2>
+      <ul>
+        <li>They respect your time, your attention, and your data.</li>
+        <li>They're built to be owned, not rented.</li>
+        <li>They're supported by the person who made them.</li>
+      </ul>
+
+      <h2>Get in touch</h2>
+      <p>
+        Questions, feedback, or just want to say hello? Email
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

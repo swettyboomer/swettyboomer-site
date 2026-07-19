@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="games icon">
+  <rect width="512" height="512" rx="112" fill="#15171b"/>
+  <rect x="4" y="4" width="504" height="504" rx="108" fill="none" stroke="#262a31" stroke-width="4"/>
+  <g fill="none" stroke="#9aa0a8" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"><rect x="116" y="196" width="280" height="120" rx="60"/><line x1="176" y1="230" x2="176" y2="282"/><line x1="150" y1="256" x2="202" y2="256"/><circle cx="322" cy="240" r="12" fill="#c8974a" stroke="none"/><circle cx="356" cy="272" r="12" fill="#c8974a" stroke="none"/></g>
+</svg>

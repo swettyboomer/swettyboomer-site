@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://swettyboomer.dev/sitemap-index.xml

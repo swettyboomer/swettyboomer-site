@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+/* ---- Design tokens ------------------------------------------------------
+   The "shelf of tools" palette: warm charcoal, off-white, one brass accent.
+   System font stack for body/display; monospace for utility labels. */
+@theme {
+  --color-ink: #0d0e11;
+  --color-slab: #15171b;
+  --color-slab-2: #191c21;
+  --color-edge: #262a31;
+  --color-edge-bright: #343945;
+  --color-bone: #eae7e1;
+  --color-ash: #9aa0a8;
+  --color-ash-dim: #6b7078;
+  --color-brass: #c8974a;
+  --color-brass-bright: #dcb066;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Segoe UI Mono", Menlo,
+    Consolas, monospace;
+}
+
+/* ---- Base --------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.6;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-brass) 30%, transparent);
+    color: var(--color-bone);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ---- Reusable pieces ---------------------------------------------------- */
+@layer components {
+  /* Mono catalog/utility label — the typographic signature. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ash);
+  }
+
+  /* The shelf ledge: a hairline with a soft shadow, so the row of cards
+     above it reads as objects resting on a shelf. */
+  .shelf-ledge {
+    height: 1.5rem;
+    border-top: 1px solid var(--color-edge);
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, #000 45%, transparent),
+      transparent 85%
+    );
+    box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--color-brass) 12%, transparent);
+  }
+
+  /* Long-form policy typography (privacy pages). No plugin needed. */
+  .policy h2 {
+    font-size: 1.05rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    color: var(--color-bone);
+    margin-top: 2.5rem;
+    margin-bottom: 0.6rem;
+  }
+  .policy p,
+  .policy li {
+    color: var(--color-ash);
+    font-size: 0.975rem;
+  }
+  .policy p {
+    margin-bottom: 0.9rem;
+  }
+  .policy ul {
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 0;
+  }
+  .policy li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.4rem;
+  }
+  .policy li::before {
+    content: "";
+    position: absolute;
+    left: 0.1rem;
+    top: 0.62rem;
+    width: 5px;
+    height: 5px;
+    border-radius: 1px;
+    background: var(--color-brass);
+  }
+  .policy a {
+    color: var(--color-brass-bright);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}

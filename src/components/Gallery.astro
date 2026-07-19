@@ -1,0 +1,33 @@
+---
+// Screenshot gallery — the hero of an app page. A horizontally scrollable
+// band of framed screenshots that works for both wide desktop captures
+// (the Shelf suite) and tall phone captures (Attune).
+interface Props {
+  screenshots: string[];
+  appName: string;
+}
+const { screenshots, appName } = Astro.props;
+---
+{
+  screenshots.length > 0 && (
+    <section aria-label={`${appName} screenshots`} class="relative">
+      <div
+        class="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 sm:mx-0 sm:px-0 [scrollbar-width:thin]"
+      >
+        {screenshots.map((src, i) => (
+          <figure class="shrink-0 snap-start">
+            <img
+              src={src}
+              alt={`${appName} screenshot ${i + 1}`}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              class="h-[clamp(340px,52vh,560px)] w-auto rounded-xl border border-edge bg-slab shadow-[0_20px_50px_-25px_rgba(0,0,0,0.9)]"
+            />
+          </figure>
+        ))}
+      </div>
+      {screenshots.length > 1 && (
+        <p class="label mt-1 text-ash-dim">Scroll to see more →</p>
+      )}
+    </section>
+  )
+}

@@ -1,0 +1,86 @@
+---
+import { getCollection, render } from 'astro:content';
+import AppLayout from '../../layouts/AppLayout.astro';
+import Gallery from '../../components/Gallery.astro';
+import StoreBadgeRow from '../../components/StoreBadgeRow.astro';
+
+export async function getStaticPaths() {
+  const apps = await getCollection('apps');
+  return apps.map((app) => ({ params: { slug: app.id }, props: { app } }));
+}
+
+const { app } = Astro.props;
+const { data } = app;
+const { Content } = await render(app);
+
+const hasStores = Boolean(
+  data.storeLinks.microsoft || data.storeLinks.apple || data.storeLinks.google
+);
+---
+<AppLayout app={app}>
+  <article class="mx-auto max-w-5xl px-5 sm:px-8">
+    <!-- 1. Hook headline -->
+    <header class="mt-12 max-w-2xl">
+      <h2 class="text-3xl font-semibold leading-tight tracking-tight text-bone sm:text-4xl">
+        {data.hook}
+      </h2>
+      <p class="mt-5 text-lg leading-relaxed text-ash">{data.description}</p>
+    </header>
+
+    <!-- 2. Store badge row (only renders if this app has store links) -->
+    <div class="mt-8">
+      <StoreBadgeRow storeLinks={data.storeLinks} />
+    </div>
+
+    <!-- 3. Screenshot gallery — the hero -->
+    <div class="mt-14">
+      <Gallery screenshots={data.screenshots} appName={data.name} />
+    </div>
+
+    <!-- 4. Feature list -->
+    <section class="mt-16">
+      <p class="label text-brass">What it does</p>
+      <ul class="mt-6 grid gap-x-10 gap-y-4 sm:grid-cols-2">
+        {
+          data.features.map((feature) => (
+            <li class="flex gap-3 text-[0.975rem] text-ash">
+              <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-[1px] bg-brass" aria-hidden="true" />
+              <span>{feature}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- Optional prose from the markdown body -->
+    <section class="policy mt-14 max-w-2xl">
+      <Content />
+    </section>
+
+    <!-- 5. Store badge row (again) -->
+    {
+      hasStores && (
+        <div class="mt-14 border-t border-edge/70 pt-10">
+          <p class="label mb-5">Get {data.name}</p>
+          <StoreBadgeRow storeLinks={data.storeLinks} />
+        </div>
+      )
+    }
+
+    <!-- 6. Support link -->
+    <div class="mt-14 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-edge/70 pt-10">
+      <a
+        href={`/support#${app.id}`}
+        class="label rounded-lg border border-edge px-4 py-2.5 text-bone transition-colors hover:border-brass/50"
+      >
+        Support &amp; FAQ →
+      </a>
+      <a
+        href={`/privacy/${app.id}`}
+        class="text-sm text-ash underline underline-offset-4 transition-colors hover:text-bone"
+      >
+        Privacy policy
+      </a>
+    </div>
+  </article>
+</AppLayout>

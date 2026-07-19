@@ -1,0 +1,130 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AppCard from '../components/AppCard.astro';
+import StatusPill from '../components/StatusPill.astro';
+import StoreBadgeRow from '../components/StoreBadgeRow.astro';
+import { SITE } from '../consts';
+
+const apps = (await getCollection('apps')).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+);
+const shelfApps = apps.filter((a) => a.id !== 'attune');
+const attune = apps.find((a) => a.id === 'attune');
+---
+<BaseLayout title={SITE.name}>
+  <!-- Hero: the thesis. Quiet, with the app icons as the objects on the shelf. -->
+  <section class="mx-auto max-w-6xl px-5 pt-16 pb-14 sm:px-8 sm:pt-24">
+    <p class="label">Independent software</p>
+    <h1 class="mt-5 max-w-3xl text-4xl font-semibold leading-[1.08] tracking-tight text-bone sm:text-6xl">
+      A shelf of tools for the things you keep.
+    </h1>
+    <p class="mt-6 max-w-xl text-lg leading-relaxed text-ash">
+      Quiet, focused desktop apps for cataloguing what you own — and Attune, a
+      calmer way to plan a session. Made by one person, built to last.
+    </p>
+
+    <div class="mt-10 flex items-center gap-3" aria-hidden="true">
+      {
+        shelfApps.map((app) => (
+          <img
+            src={app.data.icon}
+            alt=""
+            width="44"
+            height="44"
+            class="h-11 w-11 rounded-xl border border-edge/70"
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- The Shelf suite: four apps resting on the shelf ledge. -->
+  <section class="mx-auto max-w-6xl px-5 sm:px-8">
+    <div class="flex items-end justify-between gap-4">
+      <div>
+        <p class="label text-brass">The Shelf suite</p>
+        <h2 class="mt-2 text-2xl font-semibold tracking-tight text-bone">
+          Collection managers for the desktop
+        </h2>
+      </div>
+      <p class="hidden max-w-xs text-sm text-ash sm:block">
+        One quiet app per collection. Local-first, fast, and built for a big
+        screen and a keyboard.
+      </p>
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {shelfApps.map((app) => <AppCard app={app} />)}
+    </div>
+    <div class="shelf-ledge mt-1"></div>
+  </section>
+
+  <!-- Attune: a different product, given its own moment. -->
+  {
+    attune && (
+      <section class="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+        <p class="label text-brass">Also from {SITE.name}</p>
+        <div class="mt-6 overflow-hidden rounded-2xl border border-edge bg-slab">
+          <div class="grid gap-8 p-8 sm:p-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+            <div>
+              <div class="flex items-center gap-4">
+                <img
+                  src={attune.data.icon}
+                  alt={`${attune.data.name} icon`}
+                  width="56"
+                  height="56"
+                  class="h-14 w-14 rounded-2xl border border-edge"
+                />
+                <div>
+                  <h2 class="text-2xl font-semibold tracking-tight text-bone">
+                    {attune.data.name}
+                  </h2>
+                  <p class="text-sm text-ash">{attune.data.tagline}</p>
+                </div>
+              </div>
+              <p class="mt-6 max-w-md text-[0.975rem] leading-relaxed text-ash">
+                {attune.data.description}
+              </p>
+              <div class="mt-7 flex flex-wrap items-center gap-4">
+                <a
+                  href={`/apps/${attune.id}`}
+                  class="rounded-lg bg-brass px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-brass-bright"
+                >
+                  Learn more
+                </a>
+                <StatusPill status={attune.data.status} />
+              </div>
+              <div class="mt-6">
+                <StoreBadgeRow storeLinks={attune.data.storeLinks} />
+              </div>
+            </div>
+            <img
+              src={attune.data.screenshots[0]}
+              alt={`${attune.data.name} screenshot`}
+              width="900"
+              height="1950"
+              class="mx-auto max-h-[420px] w-auto rounded-2xl border border-edge shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)]"
+            />
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Quiet close. -->
+  <section class="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+    <div class="flex flex-col items-start justify-between gap-4 border-t border-edge/70 pt-10 sm:flex-row sm:items-center">
+      <p class="max-w-md text-sm text-ash">
+        Questions, bugs, or feature requests? There's a real person on the
+        other end.
+      </p>
+      <a
+        href="/support"
+        class="label rounded-lg border border-edge px-4 py-2.5 text-bone transition-colors hover:border-brass/50"
+      >
+        Get support →
+      </a>
+    </div>
+  </section>
+</BaseLayout>

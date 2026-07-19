@@ -1,0 +1,44 @@
+---
+// Layout for a single app page. Wraps BaseLayout and adds a consistent
+// app-context header: a breadcrumb back to the shelf, the app icon, name,
+// and status.
+import BaseLayout from './BaseLayout.astro';
+import StatusPill from '../components/StatusPill.astro';
+import { platformLabel } from '../consts';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  app: CollectionEntry<'apps'>;
+}
+const { app } = Astro.props;
+const { data } = app;
+---
+<BaseLayout title={data.name} description={data.tagline}>
+  <div class="mx-auto max-w-5xl px-5 pt-8 sm:px-8">
+    <a
+      href="/"
+      class="label inline-flex items-center gap-1.5 text-ash transition-colors hover:text-bone"
+    >
+      ← The shelf
+    </a>
+
+    <div class="mt-6 flex items-center gap-4">
+      <img
+        src={data.icon}
+        alt={`${data.name} icon`}
+        width="64"
+        height="64"
+        class="h-16 w-16 rounded-2xl border border-edge"
+      />
+      <div>
+        <div class="flex flex-wrap items-center gap-3">
+          <h1 class="text-xl font-semibold tracking-tight text-bone">{data.name}</h1>
+          <StatusPill status={data.status} />
+        </div>
+        <p class="label mt-1.5">{platformLabel(data.storeLinks)}</p>
+      </div>
+    </div>
+  </div>
+
+  <slot />
+</BaseLayout>
