@@ -16,13 +16,26 @@ const attune = apps.find((a) => a.id === 'attune');
   <!-- Hero: the thesis. Quiet, with the app icons as the objects on the shelf. -->
   <section class="mx-auto max-w-6xl px-5 pt-16 pb-14 sm:px-8 sm:pt-24">
     <p class="label">Independent software</p>
-    <h1 class="mt-5 max-w-3xl text-4xl font-semibold leading-[1.08] tracking-tight text-bone sm:text-6xl">
-      A shelf of tools for the things you keep.
-    </h1>
-    <p class="mt-6 max-w-xl text-lg leading-relaxed text-ash">
-      Quiet, focused desktop apps for cataloguing what you own — and Attune, a
-      calmer way to plan a session. Made by one person, built to last.
-    </p>
+    <div class="mt-5 flex items-start justify-between gap-6 sm:gap-10">
+      <div>
+        <h1 class="max-w-3xl text-4xl font-semibold leading-[1.08] tracking-tight text-bone sm:text-6xl">
+          Made by one person who sweats the details.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ash">
+          SwettyBoomer is one person building solid, dependable apps the way
+          things used to be made - back when you could tell the makers actually
+          cared. Every release gets real effort and real attention: no bloat, no
+          nonsense, and a real human who cares - like they used to.
+        </p>
+      </div>
+      <img
+        src="/images/swettyboomer-logo.jpg"
+        alt="SwettyBoomer logo"
+        width="128"
+        height="128"
+        class="h-[7.5rem] w-[7.5rem] shrink-0 rounded-full object-cover shadow-[0_16px_40px_-12px_rgba(0,0,0,0.65)] sm:h-48 sm:w-48"
+      />
+    </div>
 
     <div class="mt-10 flex items-center gap-3" aria-hidden="true">
       {
@@ -49,7 +62,7 @@ const attune = apps.find((a) => a.id === 'attune');
         </h2>
       </div>
       <p class="hidden max-w-xs text-sm text-ash sm:block">
-        One quiet app per collection. Local-first, fast, and built for a big
+        One app per collection - local-first, fast, and sturdy. Built for a big
         screen and a keyboard.
       </p>
     </div>
