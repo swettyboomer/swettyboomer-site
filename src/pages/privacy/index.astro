@@ -1,0 +1,63 @@
+---
+// Domain-level privacy landing at /privacy. Says what the website itself does
+// (nothing), then links out to each app's own policy. Each app's detailed or
+// generic policy lives at /privacy/<app-slug>.
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../consts';
+
+const apps = (await getCollection('apps')).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+);
+---
+<BaseLayout
+  title="Privacy"
+  description={`How ${SITE.name} handles privacy — for the website itself and for each app.`}
+>
+  <div class="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
+    <p class="label">{SITE.name}</p>
+    <h1 class="mt-3 text-3xl font-semibold tracking-tight text-bone sm:text-4xl">
+      Privacy
+    </h1>
+
+    <div class="policy mt-10">
+      <p>
+        {SITE.name} is an independent software publisher. Privacy works in two
+        layers here: this website, and each app you install. Both are covered
+        below.
+      </p>
+
+      <h2>This website</h2>
+      <p>
+        The {SITE.domain} website sets no cookies and runs no analytics, no
+        trackers, and no advertising. We don't collect your personal information
+        when you browse it. As with any website, the host that serves these pages
+        (GitHub Pages) records standard request logs, such as IP addresses, to
+        deliver the site.
+      </p>
+
+      <h2>Our apps</h2>
+      <p>
+        Each app has its own privacy policy describing exactly what it does with
+        your data and what, if anything, leaves your computer. Our apps are
+        local-first: your data lives on your own machine, and we run no servers
+        that receive it.
+      </p>
+      <ul>
+        {
+          apps.map((app) => (
+            <li>
+              <a href={`/privacy/${app.id}`}>{app.data.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about privacy — for the site or any app — can be sent to
+        <a href="mailto:hello@swettyboomer.dev">hello@swettyboomer.dev</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,9 +1,9 @@
 ---
-name: Shelf for Discogs
+name: Shelf for Music
 tagline: Your record collection, at home on the desktop.
 hook: The record shelf that lives on your desktop.
 description: >-
-  [Placeholder copy — replace later.] Shelf for Discogs syncs your Discogs
+  [Placeholder copy — replace later.] Shelf for Music syncs your Discogs
   library into a fast, quiet desktop app built for browsing, sorting, and
   actually enjoying the collection you've spent years building. No browser
   tab, no clutter — just your records, the way you shelve them.
@@ -29,5 +29,5 @@ order: 1
 ---
 
 [Placeholder body — replace later.] A calmer way to live with a large record
-collection. Shelf for Discogs keeps everything on your machine, so browsing is
+collection. Shelf for Music keeps everything on your machine, so browsing is
 instant and your library is yours.
