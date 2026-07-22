@@ -4,7 +4,7 @@ export const SITE = {
   name: 'SwettyBoomer',
   domain: 'swettyboomer.dev',
   url: 'https://swettyboomer.dev',
-  email: 'swettyboomer@gmail.com',
+  email: 'hello@swettyboomer.dev',
   tagline: 'A small shelf of well-made tools.',
   description:
     'SwettyBoomer is an independent software publisher. Quiet, focused desktop apps for cataloging what you own — plus Attune, a calmer way to plan a vaporization session.',
