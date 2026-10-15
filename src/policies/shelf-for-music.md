@@ -27,7 +27,8 @@ feature that needs it.
 ## What is stored, and where
 
 All of your data (your collection, wishlist, settings, scan results, scan photos and your
-credentials) is stored **locally** on your computer, as plain files in the app's data folder.
+credentials) is stored **locally** on your computer, as plain files in the app's data folder
+(scan photos go to a folder you can choose in Settings).
 
 Your credentials (your Anthropic API key and your Discogs and Google sign-in tokens) are stored in
 `config.json` in plain text. Keep your data folder private.
@@ -52,7 +53,8 @@ Your credentials (your Anthropic API key and your Discogs and Google sign-in tok
    Anthropic API key you entered, to read the text on the label or cover and identify the release.
    They are processed under your own Anthropic account and Anthropic's terms and privacy policy; we
    never receive them. Photos are sent only when you start a scan. If you never scan, no images are
-   transmitted.
+   transmitted. When you enter or test your key, the app sends Anthropic a one-word test message to
+   confirm that the key works.
 2. **Discogs.** When you connect a Discogs account (through Discogs sign-in) or run a search, the app
    contacts Discogs to fetch release details and cover images and to keep your collection and
    wishlist in step with your Discogs account.
@@ -62,7 +64,8 @@ Your credentials (your Anthropic API key and your Discogs and Google sign-in tok
    (it is **off by default**), the app uploads a backup ZIP of your collection data (collection,
    wishlist, settings, scan results, artist data and similar files) to a folder in **your own Google
    Drive**. Photos are not included in this backup. The app uses Google's `drive.file` permission, so
-   it can see only the files it created. **Your API key and sign-in tokens are removed from the
+   it can see only the files it created, and it receives your Google account's email address, which
+   it stores to show you which account is connected. **Your API key and sign-in tokens are removed from the
    settings before the backup is uploaded.** We never receive these backups; they stay in your
    Google account.
 5. **Gemini research (optional).** The Research button copies a research prompt (the album's
